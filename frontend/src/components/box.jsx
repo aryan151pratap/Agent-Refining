@@ -6,7 +6,7 @@ const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
 const Box = function () {
 	const wrapRef = useRef(null);
 	const dragRef = useRef({ id: null, dx: 0, dy: 0 });
-	const colors = ["red", "green", "blue", "yellow ", "violet", "purple", "orange"];
+	const colors = ["red", "green", "blue", "yellow", "violet", "purple", "orange"];
 
 	const [task, setTask] = useState("");
 	
@@ -59,8 +59,8 @@ const Box = function () {
 			const mx = e.clientX - r.left;
 			const my = e.clientY - r.top;
 
-			const w = 100;
-			const h = 20;
+			const w = 140;
+			const h = 40;
 
 			const nx = clamp(mx - dragRef.current.dx, 0, Math.max(0, r.width - w));
 			const ny = clamp(my - dragRef.current.dy, 0, Math.max(0, r.height - h));
@@ -109,16 +109,18 @@ const Box = function () {
 			{items.map((it) => {
 				const color = it.color;
 				return(
-					<div
-						key={it.id}
-						style={{ left: it.x, top: it.y }}
-						onMouseDown={(e) => onBoxDown(e, it.id)}
-						className={`absolute min-w-25 z-50 text-white/80 hover:text-white text-sm 
-							hover:shadow-${color}-700 shadow-sm select-none cursor-move border 
-							border-white/10 bg-${color}-600/30 hover:bg-${color}-500/40 px-4 py-2 rounded-2xl`}		
-					>
-						
+					<div key={it.id} style={{ left: it.x, top: it.y }} className="absolute group flex flex-row items-center">
+						<div className={`mr-2 p-1 opacity-0 group-hover:opacity-100 rounded-full bg-${color}-500/80`}></div>
+						<div
+							onMouseDown={(e) => onBoxDown(e, it.id)}
+							className={`min-w-25 z-50 text-white/80 hover:text-white text-sm text-center
+								hover:shadow-${color}-700 shadow-${color}-800 shadow-sm select-none cursor-move border 
+								border-white/10 bg-${color}-500/30 hover:bg-${color}-500/40 px-4 py-2 rounded-2xl`}		
+						>
+							
 							{it.text}
+						</div>
+						<div className={`ml-2 p-1 opacity-0 group-hover:opacity-100 rounded-full bg-${color}-500/80`}></div>
 					</div>
 				)
 			})}

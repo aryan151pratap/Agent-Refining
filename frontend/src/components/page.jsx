@@ -18,7 +18,9 @@ export default function Page() {
 			<Header />
 			<div className="h-full w-full flex flex-row">
 				<Agent/>
-				<Output/>
+				{/* <div>
+					<Output/>
+				</div> */}
 			</div>
 		</div>
 	);
